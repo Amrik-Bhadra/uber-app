@@ -9,7 +9,14 @@ router.post('/register', [
     body('password').isLength({ min: 8 }).withMessage('Password Must be atleast 8 characters long')
 ],
     userController.registerUser
-)
+);
+
+router.get('/login', [
+    body('email').isEmail().withMessage('Invalid Email'),
+    body('password').isLength({min: 8}).withMessage('Password must be of minimum length of 8 characters')
+],
+    userController.loginUser
+);
 
 
 module.exports = router;
