@@ -21,19 +21,19 @@ const userSchema = new mongoose.Schema({
         unique: true,
         minLength: [3, 'Email must be atleast 5 characters long'],
     },
-    password:{
+    password: {
         type: String,
         required: true,
         select: false
     },
 
-    socketId:{
+    socketId: {
         type: String
     }
 });
 
-userSchema.methods.generateAuthToken = function(){
-    const token = jwt.sign({_id: this._id}, process.env.JWT_SECRET);
+userSchema.methods.generateAuthToken = function () {
+    const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
     return token;
 }
 
