@@ -12,12 +12,12 @@ router.post('/register', [
     userController.registerUser
 );
 
-router.get('/login', [
+router.post('/login', [
     body('email').isEmail().withMessage('Invalid Email'),
-    body('password').isLength({min: 8}).withMessage('Password must be of minimum length of 8 characters')
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ],
     userController.loginUser
-);
+)
 
 router.get('/profile', authMiddleware.authUser, userController.getUserProfile);
 

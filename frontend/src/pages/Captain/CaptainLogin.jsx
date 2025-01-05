@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import logo from "../assets/uberlogo.png";
+import logo from "../../assets/uber-driver.svg";
 import { Link } from "react-router-dom";
 
-const UserLogin = () => {
+const CaptainLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userData, setUserData] = useState({});
+    const [captainData, setCaptainData] = useState({});
 
     const handleSubmit = (e)=>{
         e.preventDefault();
         setEmail('');
         setPassword('');
-        setUserData({
+        setCaptainData({
             email: email,
             password: password
         });
@@ -20,7 +20,7 @@ const UserLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between gap-y-3">
       <div>
-        <img src={logo} alt="Uber Logo" className="w-14 mb-10" />
+        <img src={logo} alt="Uber Logo" className="w-14 mb-6" />
         <form onSubmit={(e) => handleSubmit(e)}>
           <h3 className="text-lg font-medium mb-2">What's your email?</h3>
           <input
@@ -50,20 +50,20 @@ const UserLogin = () => {
           </button>
 
           <p className="text-center mt-5">
-            New Here? <Link to='/usersignup' className="text-blue-600 ml-1">Create new account</Link>
+            Join a fleet? <Link to='/captainsignup' className="text-blue-600 ml-1">Register as Captain</Link>
           </p>
         </form>
       </div>
       <div>
         <Link
-          to="/captainlogin"
-          className="flex justify-center bg-[#2fbf71] text-white font-semibold w-full rounded px-4 py-3"
+          to="/userlogin"
+          className="flex justify-center bg-[#ed7d3a] text-white font-semibold w-full rounded px-4 py-3"
         >
-          Sign in as Captain
+          Sign in as User
         </Link>
       </div>
     </div>
   );
-};
+}
 
-export default UserLogin;
+export default CaptainLogin

@@ -1,27 +1,53 @@
-import React, { useState } from "react";
-import logo from "../assets/uberlogo.png";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import logo from "../../assets/uberlogo.png";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../../context/UserContext";
+import toast from "react-hot-toast";
 
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [userData, setUserData] = useState({});
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { user, setUser } = useContext(UserDataContext);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setEmail("");
-    setPassword("");
-    setUserData({
-      fullName:{
+
+    const newUser = {
+      fullName: {
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
       },
       email: email,
       password: password,
-    });
+    };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/register`,
+        newUser
+      );
+      if (response.status === 201) {
+        const data = response.data;
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+        setEmail("");
+        setPassword("");
+        setFirstName("");
+        setLastName("");
+        setConfirmPassword("");
+        toast.success("User Registered Successfully!");
+        navigate("/userlogin");
+      }
+    } catch (error) {
+      console.error("Registration error:", error.response?.data || error.message);
+      toast.error(error.response?.data?.message || "Registration failed!");
+    }
   };
 
   return (

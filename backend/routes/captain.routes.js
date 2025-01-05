@@ -17,7 +17,7 @@ captainController.registerCaptain
 );
 
 
-router.get('/login', [
+router.post('/login', [
     body('email').isEmail().withMessage('Invalid Email'),
     body('password').isLength({min: 8}).withMessage('Password must be of minimum length of 8 characters')
 ],
