@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <div
-        className="h-screen w-full bg-red-400 flex justify-between flex-col pt-8 bg-cover"
+        className="h-screen w-ful flex justify-between flex-col pt-8 bg-cover"
         style={{ backgroundImage: `url(${homeimage})` }} 
       >
         <img src={logo} alt="Uber Logo" className="w-14 ml-8" />
